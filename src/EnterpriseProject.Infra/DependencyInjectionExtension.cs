@@ -5,6 +5,9 @@ using EnterpriseProject.Domain.Repositories;
 using EnterpriseProject.Infra.DataAccess.Repositories;
 using EnterpriseProject.Infra.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using EnterpriseProject.Domain.Repositories.SenhaEnterprise;
+using EnterpriseProject.Domain.Security.Cryptography;
+using EnterpriseProject.Infra.Security.Cryptography;
 
 namespace EnterpriseProject.Infra;
 
@@ -14,6 +17,7 @@ public static class DependencyInjectionExtension
     {
         AddRepositories(services);
         AddDbContext(services, configuration);
+        AddPasswordEncripter(services);
     }
     private static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
     {
@@ -28,5 +32,11 @@ public static class DependencyInjectionExtension
         services.AddScoped<IEnterpriseWriteRepository, EnterpriseRepository>();
         services.AddScoped<IEnterpriseReadRepository, EnterpriseRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ISenhaEnterpriseWriteRepository, SenhaEnterpriseRepository>();
+        services.AddScoped<ISenhaEnterpriseReadRepository, SenhaEnterpriseRepository>();
+    }
+    private static void AddPasswordEncripter(this IServiceCollection services) 
+    {
+        services.AddScoped<IPasswordCryptography, BCryptNet>();
     }
 }

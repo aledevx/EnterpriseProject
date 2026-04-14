@@ -1,6 +1,7 @@
 using EnterpriseProject.Application.UseCases.Enterprise.GetById;
 using EnterpriseProject.Application.UseCases.Enterprise.Register;
 using EnterpriseProject.Application.UseCases.Enterprise.Update;
+using EnterpriseProject.Application.UseCases.SenhaEnterprise.Gerar;
 using EnterpriseProject.Communication.Requests;
 using EnterpriseProject.Web.ViewModels.Enterprise;
 using Microsoft.AspNetCore.Mvc;
@@ -109,10 +110,10 @@ public class EnterpriseController : Controller
             return RedirectToAction("Index", "Home");
         }
     }
-    [HttpGet]
-    public async Task<JsonResult> GerarSenha(int id)
+    [HttpPost]
+    public async Task<JsonResult> GerarSenha(int id, [FromServices] IGerarSenhaUseCase useCase)
     {
-        var senha = RandomNumberGenerator.GetInt32(100000, 1000000);
-        return Json(senha.ToString());
+        var senha = await useCase.ExecuteAsync(id);
+        return Json(senha);
     }
 }

@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="UseCases\Enterprise\GetById\" />
     <Folder Include="UseCases\Enterprise\Update\" />
+    <Folder Include="UseCases\SenhaEnterprise\Validar\" />
   </ItemGroup>
 
   <ItemGroup>

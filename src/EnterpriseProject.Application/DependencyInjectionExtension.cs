@@ -2,6 +2,7 @@ using EnterpriseProject.Application.UseCases.Enterprise.GetAll;
 using EnterpriseProject.Application.UseCases.Enterprise.GetById;
 using EnterpriseProject.Application.UseCases.Enterprise.Register;
 using EnterpriseProject.Application.UseCases.Enterprise.Update;
+using EnterpriseProject.Application.UseCases.SenhaEnterprise.Gerar;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EnterpriseProject.Application;
@@ -18,5 +19,6 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetByIdEnterpriseUseCase, GetByIdEnterpriseUseCase>();
         services.AddScoped<IUpdateEnterpriseUseCase, UpdateEnterpriseUseCase>();
         services.AddScoped<IGetAllEnterprisesUseCase, GetAllEnterprisesUseCase>();
+        services.AddScoped<IGerarSenhaUseCase, GerarSenhaUseCase>();
     }
 }

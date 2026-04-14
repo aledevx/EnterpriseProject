@@ -11,4 +11,5 @@ public class EnterpriseDbContext : DbContext
     }
 
     public DbSet<Enterprise> Enterprises { get; set; }
+    public DbSet<SenhaEnterprise> SenhasEnterprise { get; set; }
 }
