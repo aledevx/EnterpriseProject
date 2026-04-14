@@ -1,0 +1,88 @@
+@model EnterpriseProject.Web.ViewModels.Enterprise.EnterpriseViewModel
+@{
+    ViewData["Title"] = "Detalhes da Empresa";
+}
+
+<h2>Detalhes da Empresa</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Cnpj)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Cnpj)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Update" asp-route-id="@Model?.Id" class="btn btn-warning">Editar</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Voltar</a>
+    <a class="btn btn-primary" onClick="GerarSenha(@Model!.Id)">Gerar senha</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="senhaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="senhaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow border-0 rounded-4">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title fw-bolder text-primary" id="senhaModalLabel">
+            🔑 Nova Senha Gerada
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body px-4 pt-3 pb-4 text-center">
+        <div class="mb-4">
+            <span class="text-muted d-block border-0 mb-3">A senha gerada para a empresa é:</span>
+            <div class="p-3 bg-light rounded-3 d-inline-block border border-secondary border-opacity-25 w-100">
+                <strong id="senhaGeradaText" class="display-6 text-dark font-monospace user-select-all" style="letter-spacing: 2px;"></strong>
+            </div>
+        </div>
+        
+        <div class="alert alert-warning text-start mb-0 border border-warning border-opacity-50" role="alert">
+            <h6 class="alert-heading fw-bold mb-2">
+                ⚠️ Avisos Importantes
+            </h6>
+            <ul class="mb-0 small ps-3">
+                <li class="mb-1"><strong>Anote sua senha:</strong> Guarde esta senha em um local seguro.</li>
+                <li class="mb-1"><strong>Visualização única:</strong> Ao fechar esta janela, não será possível visualizá-la novamente.</li>
+                <li><strong>Substituição:</strong> Caso gere uma nova senha no futuro, esta passará a ser inválida imediatamente.</li>
+            </ul>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0 d-flex justify-content-center pt-0 pb-4">
+        <button type="button" class="btn btn-primary px-4 py-2 fw-semibold rounded-pill" data-bs-dismiss="modal">Entendi e Anotei a Senha</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+    <script>
+        function GerarSenha(id) {
+            fetch('@Url.Action("GerarSenha", "Enterprise")?id=' + id)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('senhaGeradaText').innerText = data;
+                    var myModal = new bootstrap.Modal(document.getElementById('senhaModal'));
+                    myModal.show();
+                })
+                .catch(error => {
+                    console.error('Erro ao gerar senha:', error);
+                    alert('Houve um erro ao gerar a senha.');
+                });
+        }
+    </script>
+}

@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EnterpriseProject.Application/EnterpriseProject.Application.csproj" />
+    <Project Path="src/EnterpriseProject.Communication/EnterpriseProject.Communication.csproj" />
+    <Project Path="src/EnterpriseProject.Domain/EnterpriseProject.Domain.csproj" />
+    <Project Path="src/EnterpriseProject.Infra/EnterpriseProject.Infra.csproj" />
+    <Project Path="src/EnterpriseProject.Web/EnterpriseProject.Web.csproj" />
+  </Folder>
+</Solution>

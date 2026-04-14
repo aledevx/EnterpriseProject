@@ -1,0 +1,30 @@
+@model EnterpriseProject.Web.ViewModels.Enterprise.UpdateEnterpriseViewModel
+@{
+    ViewData["Title"] = "Atualizar Empresa";
+}
+
+<h2>Atualizar Empresa</h2>
+
+<form asp-action="Update" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    
+    <div class="form-group mb-3">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="Cnpj" class="control-label"></label>
+        <input asp-for="Cnpj" class="form-control" />
+        <span asp-validation-for="Cnpj" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Atualizar</button>
+    <a asp-action="GetById" asp-route-id="@Model.Id" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
